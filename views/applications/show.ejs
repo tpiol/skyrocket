@@ -17,6 +17,9 @@
     <% } %>
     <p>The status of this application is: <%= application.status %></p>
 
+    <a href="/users/<%= user._id %>/applications/<%= application._id %>/edit">
+        Edit This Application
+    </a>
     <form
       action="/users/<%= user._id %>/applications/<%= application._id %>?_method=DELETE"
       method="POST"
