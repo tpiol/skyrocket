@@ -35,14 +35,16 @@ app.use(
 app.use(passUserToView); // pass that user info to an EJS template
 
 app.get('/', (req, res) => {
-  res.render('index.ejs', {
-    user: req.session.user,
-  });
+  if (req.session.user) {
+    res.redirect(`/users/${req.session.user._id}/applications`);
+  } else {
+  res.render('index.ejs');
+  }
 });
 
 app.use('/auth', authController);
 app.use(isSignedIn); // setting this one up after someone has a chance to sign in 
-app.use('/users/:userId/applications', applicationsController)
+app.use('/users/:userId/applications', applicationsController);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
